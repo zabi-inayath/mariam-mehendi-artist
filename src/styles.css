@@ -1,0 +1,281 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand semantic tokens */
+  --color-maroon-deep: var(--maroon-deep);
+  --color-maroon-core: var(--maroon-core);
+  --color-gold: var(--gold);
+  --color-gold-muted: var(--gold-muted);
+  --color-ivory: var(--ivory);
+  --color-ivory-muted: var(--ivory-muted);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* Brand palette — Dark Maroon Luxe */
+  --maroon-deep: oklch(0.18 0.07 15);
+  --maroon-core: oklch(0.25 0.09 15);
+  --gold: oklch(0.78 0.11 80);
+  --gold-muted: oklch(0.55 0.08 75);
+  --ivory: oklch(0.97 0.012 85);
+  --ivory-muted: oklch(0.82 0.018 80);
+
+  --font-display: "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --background: var(--maroon-deep);
+  --foreground: var(--ivory);
+  --card: var(--maroon-core);
+  --card-foreground: var(--ivory);
+  --popover: var(--maroon-core);
+  --popover-foreground: var(--ivory);
+  --primary: var(--gold);
+  --primary-foreground: var(--maroon-deep);
+  --secondary: var(--maroon-core);
+  --secondary-foreground: var(--ivory);
+  --muted: var(--maroon-core);
+  --muted-foreground: var(--ivory-muted);
+  --accent: var(--gold);
+  --accent-foreground: var(--maroon-deep);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: var(--ivory);
+  --border: oklch(0.78 0.11 80 / 0.12);
+  --input: oklch(0.78 0.11 80 / 0.15);
+  --ring: var(--gold);
+}
+
+@import "tailwindcss";
+
+/* Enhanced smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D57B39;
+}
+
+.scriptregular {
+  font-family: "Style Script";
+  font-weight: 400;
+  font-style: normal;
+}
+
+.hagrid {
+  font-family: 'Hagrid', sans-serif;
+}
+
+.poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+.dm-sans {
+  font-family: 'DM Sans', sans-serif;
+}
+
+.league-spartan {
+  font-family: 'LeagueSpartan', sans-serif;
+}
+
+@font-face {
+  font-family: 'Hagrid';
+  src: url('/fonts/Hagrid-Regular-trial.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* poppins font*/
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('/fonts/DMSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LeagueSpartan';
+  src: url('/fonts/LeagueSpartan-Bold.otf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DXRigraf-SemiBold';
+  src: url('/fonts/DXRigraf-SemiBold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DXRigraf-Light';
+  src: url('/fonts/DXRigraf-Light.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DXRigraf-Thin';
+  src: url('/fonts/DXRigraf-Thin.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SpaceGrotesk-SemiBold';
+  src: url('/fonts/SpaceGrotesk-SemiBold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ligema-DEMO';
+  src: url('/fonts/Ligema-DEMO.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MiguErsans-Regular';
+  src: url('/fonts/miguersansregular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.MiguErsansRegular {
+  font-family: 'MiguErsans-Regular', sans-serif;
+}
+
+.Ligema {
+  font-family: 'Ligema-DEMO', sans-serif;
+}
+
+.SpaceGrotesk {
+  font-family: 'SpaceGrotesk-SemiBold', sans-serif;
+}
+
+.DXRigraf {
+  font-family: 'DXRigraf-SemiBold', sans-serif;
+}
+
+.DXRigraf-light {
+  font-family: 'DXRigraf-Light', sans-serif;
+}
+
+.DXRigraf-Thin {
+  font-family: 'DXRigraf-Thin', sans-serif;
+}
+
+@keyframes fadeCarousel {
+  0% {
+    opacity: 0;
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  35% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-fade-carousel {
+  animation: fadeCarousel 15s linear infinite;
+}
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility animate-reveal {
+  animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@utility animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background-color: var(--color-gold);
+    color: var(--color-maroon-deep);
+  }
+}
