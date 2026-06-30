@@ -168,6 +168,8 @@ function Index() {
     setInquiryPackage(null);
   };
 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const [galleryPage, setGalleryPage] = useState(1);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const imagesPerPage = 9;
@@ -226,19 +228,58 @@ function Index() {
         <a href="#top" className="font-display italic text-2xl tracking-tighter">
           Mariam
         </a>
-        <div className="hidden md:flex gap-10 text-[10px] uppercase tracking-[0.25em] font-medium text-ivory-muted">
-          <a href="#craft" className="hover:text-gold transition-colors">The Craft</a>
+        <div className="hidden lg:flex gap-8 text-[10px] uppercase tracking-[0.25em] font-medium text-ivory-muted">
+          <a href="#craft" className="hover:text-gold transition-colors">About</a>
           <a href="#services" className="hover:text-gold transition-colors">Services</a>
-          <a href="#cities" className="hover:text-gold transition-colors">Availability</a>
-          <a href="#pricing" className="hover:text-gold transition-colors">Investment</a>
+          <a href="#cities" className="hover:text-gold transition-colors">Service Areas</a>
+          <a href="#gallery" className="hover:text-gold transition-colors">Our Gallery</a>
+          <a href="#testimonials" className="hover:text-gold transition-colors">Reviews</a>
+          <a href="#pricing" className="hover:text-gold transition-colors">Pricing</a>
         </div>
-        <a
-          href="#pricing"
-          className="px-5 py-2.5 border border-gold/40 text-[10px] uppercase tracking-[0.2em] hover:bg-gold hover:text-maroon-deep transition-all duration-300"
-        >
-          Book Atelier
-        </a>
+        <div className="flex items-center gap-4">
+          <a
+            href="#pricing"
+            className="hidden md:block rounded-xl px-5 py-2.5 border border-gold/40 text-[10px] uppercase tracking-[0.2em] hover:bg-gold hover:text-maroon-deep transition-all duration-300"
+          >
+            Reserve Your Date
+          </a>
+          <button 
+            className="lg:hidden text-ivory hover:text-gold transition-colors"
+            onClick={() => setIsMobileMenuOpen(true)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+        </div>
       </nav>
+
+      {/* Mobile Nav Overlay */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-[100] bg-maroon-deep/95 backdrop-blur-lg flex flex-col items-center justify-center p-6">
+          <button 
+            className="absolute top-6 right-6 text-ivory hover:text-gold transition-colors"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+          
+          <div className="flex flex-col gap-8 text-center text-lg uppercase tracking-[0.25em] font-medium text-ivory">
+            <a href="#craft" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">About</a>
+            <a href="#services" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Services</a>
+            <a href="#cities" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Service Areas</a>
+            <a href="#gallery" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Our Gallery</a>
+            <a href="#testimonials" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Reviews</a>
+            <a href="#pricing" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Pricing</a>
+            
+            <a
+              href="#pricing"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="mt-8 px-8 py-4 border border-gold/40 text-[10px] hover:bg-gold hover:text-maroon-deep transition-all duration-300 rounded-xl"
+            >
+             Reserve Your Date
+            </a>
+          </div>
+        </div>
+      )}
 
       {/* Hero */}
       <section
@@ -603,22 +644,21 @@ function Index() {
           <div className="md:text-right space-y-4">
             <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-gold">Contact</p>
             <a
-              href="mailto:atelier@mariammehendi.com"
+              href="mailto:mehendibymariam@ilahtech.in"
               className="block text-xl md:text-2xl hover:text-gold transition-colors"
             >
-              atelier@mariammehendi.com
+              mehendibymariam@ilahtech.in
             </a>
-            <p className="text-ivory-muted">+44 20 7946 0123</p>
+            <p className="text-ivory-muted text-lg md:text-xl">+91 936050 8648</p>
             <div className="flex md:justify-end gap-8 text-[10px] uppercase tracking-[0.25em] pt-2">
-              <a href="#" className="hover:text-gold transition-colors">Instagram</a>
-              <a href="#" className="hover:text-gold transition-colors">Pinterest</a>
-              <a href="#" className="hover:text-gold transition-colors">Journal</a>
+              <a href="https://www.instagram.com/mariam_mehndi_artist_" className="hover:text-gold transition-colors">Instagram</a>
+              <a href="https://wa.me/919360508648" className="hover:text-gold transition-colors">WhatsApp</a>
             </div>
           </div>
         </div>
-        <div className="mt-16 pt-8 border-t border-gold/10 flex flex-col sm:flex-row justify-between gap-3 font-mono text-[9px] uppercase tracking-[0.25em] text-gold-muted">
+        <div className="mt-16 pt-8 border-t border-gold/10 flex flex-col md:flex-row justify-between gap-3 font-mono text-[12px] uppercase tracking-[0.25em] text-gold-muted">
           <p>© {new Date().getFullYear()} Mariam Mehendi Artist</p>
-          <p>Bespoke · By Appointment · Worldwide</p>
+          <a href="https://ilahtech.in" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors poppins">Designed by Ilah Technologies</a>
         </div>
       </footer>
 
