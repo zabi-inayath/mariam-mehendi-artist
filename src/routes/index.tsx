@@ -65,12 +65,6 @@ const testimonials = [
   },
 ];
 
-const waNumber = "919360508648";
-const getWaLink = (pkgTitle: string) => {
-  const text = `Hi Mariam Mehendi Artist,\n\nI would like to inquire about the *${pkgTitle}* package.\n\n*Name:* \n*Phone:* \n*Address:* \n*Event Date:* `;
-  return `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
-};
-
 const packages = [
   {
     title: "Bridal Mehendi",
@@ -154,6 +148,25 @@ function Index() {
   const [subheadingIndex, setSubheadingIndex] = useState(0);
   const [typedText, setTypedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const [inquiryPackage, setInquiryPackage] = useState<string | null>(null);
+
+  const handleInquirySubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!inquiryPackage) return;
+    
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const phone = formData.get("phone") as string;
+    const address = formData.get("address") as string;
+    
+    const text = `Hi Mariam Mehendi Artist,\n\nI would like to inquire about the *${inquiryPackage}* package.\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Address:* ${address}`;
+    const waNumber = "919360508648";
+    const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
+    
+    window.open(waLink, "_blank");
+    setInquiryPackage(null);
+  };
 
   const [galleryPage, setGalleryPage] = useState(1);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -563,10 +576,8 @@ function Index() {
                 ))}
               </ul>
               
-              <a
-                href={getWaLink(pkg.title)}
-                target="_blank"
-                rel="noreferrer"
+              <button
+                onClick={() => setInquiryPackage(pkg.title)}
                 className={`block text-center w-full mt-auto py-4 text-[11px] uppercase tracking-[0.25em] font-semibold transition-colors rounded-xl poppins ${
                   pkg.popular 
                     ? 'bg-gold text-maroon-deep hover:bg-ivory' 
@@ -574,7 +585,7 @@ function Index() {
                 }`}
               >
                 {pkg.customButton || "Inquire Now"}
-              </a>
+              </button>
             </div>
           ))}
         </div>
@@ -610,6 +621,72 @@ function Index() {
           <p>Bespoke · By Appointment · Worldwide</p>
         </div>
       </footer>
+
+      {/* Inquiry Popup */}
+      {inquiryPackage && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-maroon-deep/90 backdrop-blur-md p-4">
+          <div className="absolute inset-0 cursor-pointer" onClick={() => setInquiryPackage(null)} />
+          
+          <div className="relative z-[210] bg-maroon-core border border-gold/20 p-8 md:p-12 rounded-2xl w-full max-w-md shadow-2xl">
+            <button 
+              onClick={() => setInquiryPackage(null)} 
+              className="absolute top-4 right-4 text-gold-muted hover:text-gold transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            
+            <div className="mb-8 text-center">
+              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-gold mb-2">Inquiry</p>
+              <h3 className="text-2xl font-display text-ivory">Package Details</h3>
+              <p className="text-sm text-ivory-muted mt-2 poppins">Please provide your details for the <span className="text-gold font-bold">{inquiryPackage}</span> package.</p>
+            </div>
+
+            <form onSubmit={handleInquirySubmit} className="space-y-5 poppins">
+              <div>
+                <label htmlFor="name" className="block text-xs uppercase tracking-widest text-gold-muted mb-2">Full Name *</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  required 
+                  className="w-full bg-maroon-deep/50 border border-gold/20 rounded-lg px-4 py-3 text-ivory focus:outline-none focus:border-gold transition-colors"
+                  placeholder="Your Name"
+                />
+              </div>
+              <div>
+                <label htmlFor="phone" className="block text-xs uppercase tracking-widest text-gold-muted mb-2">Phone Number *</label>
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  name="phone" 
+                  required 
+                  className="w-full bg-maroon-deep/50 border border-gold/20 rounded-lg px-4 py-3 text-ivory focus:outline-none focus:border-gold transition-colors"
+                  placeholder="Your WhatsApp Number"
+                />
+              </div>
+              <div>
+                <label htmlFor="address" className="block text-xs uppercase tracking-widest text-gold-muted mb-2">Address / Location *</label>
+                <textarea 
+                  id="address" 
+                  name="address" 
+                  required 
+                  rows={3}
+                  className="w-full bg-maroon-deep/50 border border-gold/20 rounded-lg px-4 py-3 text-ivory focus:outline-none focus:border-gold transition-colors resize-none"
+                  placeholder="Event location or your address"
+                />
+              </div>
+              
+              <button 
+                type="submit" 
+                className="w-full bg-gold text-maroon-deep hover:bg-ivory transition-colors py-4 rounded-xl text-[11px] uppercase tracking-[0.25em] font-bold mt-4"
+              >
+                Send to WhatsApp
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
