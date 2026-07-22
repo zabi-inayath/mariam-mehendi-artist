@@ -15,11 +15,8 @@ const subheadings = [
   "Pyaar aur perfection ke saath banaye gaye hamare mehendi designs aapke special din ko aur bhi khoobsurat aur yaadgaar bana dete hain."
 ];
 import artistPortrait from "@/assets/artist.png";
-import serviceBridal from "@/assets/service-bridal.jpg";
-import serviceArabic from "@/assets/service-arabic.jpg";
-import serviceMandala from "@/assets/service-mandala.jpg";
 
-const galleryImagesData = import.meta.glob<{ default: string }>('@/assets/gallery/*.jpg', { eager: true });
+const galleryImagesData = import.meta.glob<{ default: string }>('../assets/gallery/*.jpg', { eager: true });
 const galleryImages = Object.values(galleryImagesData).map((module) => module.default);
 
 export const Route = createFileRoute("/")({
@@ -69,8 +66,8 @@ const packages = [
   {
     title: "Bridal Mehendi",
     oldPrice: "₹2,499",
-    price: "₹1,699",
-    discount: "32% OFF",
+    price: "₹1,999",
+    discount: "20% OFF",
     features: [
       "Traditional bridal mehendi up to elbows",
       "Feet up to ankles",
@@ -81,9 +78,9 @@ const packages = [
   },
   {
     title: "Engagement Bride",
-    oldPrice: "₹1,899",
-    price: "₹1,499",
-    discount: "21% OFF",
+    oldPrice: "₹1,999",
+    price: "₹1,699",
+    discount: "15% OFF",
     features: [
       "Intricate bridal mehendi up to mid-arms",
       "Detailed feet up to mid-calf",
@@ -154,16 +151,16 @@ function Index() {
   const handleInquirySubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!inquiryPackage) return;
-    
+
     const formData = new FormData(e.currentTarget);
     const name = formData.get("name") as string;
     const phone = formData.get("phone") as string;
     const address = formData.get("address") as string;
-    
+
     const text = `Hi Mariam Mehendi Artist,\n\nI would like to inquire about the *${inquiryPackage}* package.\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Address:* ${address}`;
     const waNumber = "919360508648";
     const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
-    
+
     window.open(waLink, "_blank");
     setInquiryPackage(null);
   };
@@ -174,7 +171,7 @@ function Index() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const imagesPerPage = 9;
   const totalGalleryPages = Math.ceil(galleryImages.length / imagesPerPage);
-  
+
   const currentGalleryImages = galleryImages.slice(
     (galleryPage - 1) * imagesPerPage,
     galleryPage * imagesPerPage
@@ -232,7 +229,7 @@ function Index() {
           <a href="#craft" className="hover:text-gold transition-colors">About</a>
           <a href="#services" className="hover:text-gold transition-colors">Services</a>
           <a href="#cities" className="hover:text-gold transition-colors">Service Areas</a>
-          <a href="#gallery" className="hover:text-gold transition-colors">Our Gallery</a>
+          <a href="#gallery" className="hover:text-gold transition-colors">My Work</a>
           <a href="#testimonials" className="hover:text-gold transition-colors">Reviews</a>
           <a href="#pricing" className="hover:text-gold transition-colors">Pricing</a>
         </div>
@@ -243,7 +240,7 @@ function Index() {
           >
             Reserve Your Date
           </a>
-          <button 
+          <button
             className="lg:hidden text-ivory hover:text-gold transition-colors"
             onClick={() => setIsMobileMenuOpen(true)}
           >
@@ -255,27 +252,27 @@ function Index() {
       {/* Mobile Nav Overlay */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-[100] bg-maroon-deep/95 backdrop-blur-lg flex flex-col items-center justify-center p-6">
-          <button 
+          <button
             className="absolute top-6 right-6 text-ivory hover:text-gold transition-colors"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
-          
+
           <div className="flex flex-col gap-8 text-center text-lg uppercase tracking-[0.25em] font-medium text-ivory">
             <a href="#craft" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">About</a>
             <a href="#services" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Services</a>
             <a href="#cities" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Service Areas</a>
-            <a href="#gallery" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Our Gallery</a>
+            <a href="#gallery" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">My Work</a>
             <a href="#testimonials" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Reviews</a>
             <a href="#pricing" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Pricing</a>
-            
+
             <a
               href="#pricing"
               onClick={() => setIsMobileMenuOpen(false)}
               className="mt-8 px-8 py-4 border border-gold/40 text-[10px] hover:bg-gold hover:text-maroon-deep transition-all duration-300 rounded-xl"
             >
-             Reserve Your Date
+              Reserve Your Date
             </a>
           </div>
         </div>
@@ -454,22 +451,22 @@ function Index() {
       <section id="gallery" className="py-24 px-6 lg:px-20 bg-maroon-core border-t border-gold/10">
         <div className="flex flex-col items-center text-center mb-16">
           <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-gold mb-4">Portfolio</p>
-          <h2 className="text-4xl md:text-5xl font-display bg-gold text-maroon-deep p-1 rounded-lg inline-block px-4">Our Gallery</h2>
+          <h2 className="text-4xl md:text-5xl font-display bg-gold text-maroon-deep p-1 rounded-lg inline-block px-4">My Work</h2>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
           {currentGalleryImages.map((src, i) => {
             const globalIndex = (galleryPage - 1) * imagesPerPage + i;
             return (
-              <div 
-                key={globalIndex} 
+              <div
+                key={globalIndex}
                 className="group relative aspect-square overflow-hidden cursor-pointer"
                 onClick={() => openLightbox(globalIndex)}
               >
                 <div className="absolute inset-0 bg-maroon-deep/20 group-hover:bg-transparent transition-colors z-10" />
-                <img 
-                  src={src} 
-                  alt={`Gallery image ${globalIndex + 1}`} 
+                <img
+                  src={src}
+                  alt={`Gallery image ${globalIndex + 1}`}
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
@@ -480,27 +477,48 @@ function Index() {
 
         {/* Pagination */}
         {totalGalleryPages > 1 && (
-          <div className="flex justify-center items-center gap-6 mt-16 font-mono text-sm text-gold">
-            <button 
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-16">
+            {/* Previous */}
+            <button
               onClick={() => {
-                setGalleryPage(p => Math.max(1, p - 1));
-                document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' });
+                setGalleryPage((p) => Math.max(1, p - 1));
+                document.getElementById("gallery")?.scrollIntoView({ behavior: "smooth" });
               }}
               disabled={galleryPage === 1}
-              className="disabled:opacity-30 hover:text-ivory transition-colors uppercase tracking-widest text-[10px]"
+              className="px-4 py-2 rounded-full border border-gold/30 text-sm font-medium text-gold hover:bg-gold hover:text-black transition disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              ← Prev
+              ← Previous
             </button>
-            <span>
-              {String(galleryPage).padStart(2, '0')} / {String(totalGalleryPages).padStart(2, '0')}
-            </span>
-            <button 
+
+            {/* Page Numbers */}
+            <div className="flex items-center gap-2 flex-wrap justify-center">
+              {Array.from({ length: totalGalleryPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => {
+                    setGalleryPage(page);
+                    document
+                      .getElementById("gallery")
+                      ?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className={`w-10 h-10 rounded-full text-sm font-semibold transition ${galleryPage === page
+                    ? "bg-gold text-black"
+                    : "border border-gold/30 text-gold hover:bg-gold hover:text-black"
+                    }`}
+                >
+                  {page}
+                </button>
+              ))}
+            </div>
+
+            {/* Next */}
+            <button
               onClick={() => {
-                setGalleryPage(p => Math.min(totalGalleryPages, p + 1));
-                document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' });
+                setGalleryPage((p) => Math.min(totalGalleryPages, p + 1));
+                document.getElementById("gallery")?.scrollIntoView({ behavior: "smooth" });
               }}
               disabled={galleryPage === totalGalleryPages}
-              className="disabled:opacity-30 hover:text-ivory transition-colors uppercase tracking-widest text-[10px]"
+              className="px-4 py-2 rounded-full border border-gold/30 text-sm font-medium text-gold hover:bg-gold hover:text-black transition disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Next →
             </button>
@@ -512,34 +530,34 @@ function Index() {
       {lightboxIndex !== null && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-maroon-deep/95 backdrop-blur-md">
           <div className="absolute inset-0 cursor-pointer" onClick={closeLightbox} />
-          
-          <button 
-            onClick={closeLightbox} 
+
+          <button
+            onClick={closeLightbox}
             className="absolute top-6 right-6 md:top-10 md:right-10 z-[110] text-ivory hover:text-gold transition-colors"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
-          
-          <button 
+
+          <button
             onClick={(e) => { e.stopPropagation(); prevImage(); }}
             className="absolute left-4 md:left-10 z-[110] text-ivory hover:text-gold transition-colors bg-maroon-core/50 p-2 rounded-full backdrop-blur-sm"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
           </button>
 
-          <img 
-            src={galleryImages[lightboxIndex]} 
-            alt="Preview" 
+          <img
+            src={galleryImages[lightboxIndex]}
+            alt="Preview"
             className="max-h-[85vh] max-w-[90vw] object-contain relative z-[105] shadow-2xl border border-gold/10"
           />
 
-          <button 
+          <button
             onClick={(e) => { e.stopPropagation(); nextImage(); }}
             className="absolute right-4 md:right-10 z-[110] text-ivory hover:text-gold transition-colors bg-maroon-core/50 p-2 rounded-full backdrop-blur-sm"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
-          
+
           <div className="absolute bottom-6 font-mono text-[10px] uppercase tracking-widest text-gold-muted z-[110]">
             {lightboxIndex + 1} / {galleryImages.length}
           </div>
@@ -581,8 +599,8 @@ function Index() {
 
         <div className="grid lg:grid-cols-3 gap-8 items-start max-w-7xl mx-auto">
           {packages.map((pkg, i) => (
-            <div 
-              key={pkg.title} 
+            <div
+              key={pkg.title}
               className={`relative bg-maroon-core border ${pkg.popular ? 'border-gold shadow-[0_0_40px_rgba(213,123,57,0.1)]' : 'border-gold/10'} p-10 flex flex-col h-full rounded-2xl hover:-translate-y-2 transition-transform duration-500`}
             >
               {pkg.popular && (
@@ -590,7 +608,7 @@ function Index() {
                   Most Popular
                 </div>
               )}
-              
+
               <div className="mb-8 border-b border-gold/10 pb-8 text-center pt-2">
                 <h3 className="text-2xl font-display mb-4 text-ivory">{pkg.title}</h3>
                 <div className="flex flex-col items-center justify-center gap-1 mb-2 hagrid">
@@ -607,7 +625,7 @@ function Index() {
                   <span className="text-4xl text-gold dm-sans">{pkg.price}</span>
                 </div>
               </div>
-              
+
               <ul className="flex-1 space-y-4 mb-10 poppins">
                 {pkg.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-4 text-sm text-ivory-muted">
@@ -616,14 +634,13 @@ function Index() {
                   </li>
                 ))}
               </ul>
-              
+
               <button
                 onClick={() => setInquiryPackage(pkg.title)}
-                className={`block text-center w-full mt-auto py-4 text-[11px] uppercase tracking-[0.25em] font-semibold transition-colors rounded-xl poppins ${
-                  pkg.popular 
-                    ? 'bg-gold text-maroon-deep hover:bg-ivory' 
-                    : 'border border-gold/30 hover:border-gold hover:bg-gold/5 text-ivory'
-                }`}
+                className={`block text-center w-full mt-auto py-4 text-[11px] uppercase tracking-[0.25em] font-semibold transition-colors rounded-xl poppins ${pkg.popular
+                  ? 'bg-gold text-maroon-deep hover:bg-ivory'
+                  : 'border border-gold/30 hover:border-gold hover:bg-gold/5 text-ivory'
+                  }`}
               >
                 {pkg.customButton || "Inquire Now"}
               </button>
@@ -666,15 +683,15 @@ function Index() {
       {inquiryPackage && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center bg-maroon-deep/90 backdrop-blur-md p-4">
           <div className="absolute inset-0 cursor-pointer" onClick={() => setInquiryPackage(null)} />
-          
+
           <div className="relative z-[210] bg-maroon-core border border-gold/20 p-8 md:p-12 rounded-2xl w-full max-w-md shadow-2xl">
-            <button 
-              onClick={() => setInquiryPackage(null)} 
+            <button
+              onClick={() => setInquiryPackage(null)}
               className="absolute top-4 right-4 text-gold-muted hover:text-gold transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
-            
+
             <div className="mb-8 text-center">
               <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-gold mb-2">Inquiry</p>
               <h3 className="text-2xl font-display text-ivory">Package Details</h3>
@@ -684,40 +701,40 @@ function Index() {
             <form onSubmit={handleInquirySubmit} className="space-y-5 poppins">
               <div>
                 <label htmlFor="name" className="block text-xs uppercase tracking-widest text-gold-muted mb-2">Full Name *</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name" 
-                  required 
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
                   className="w-full bg-maroon-deep/50 border border-gold/20 rounded-lg px-4 py-3 text-ivory focus:outline-none focus:border-gold transition-colors"
                   placeholder="Your Name"
                 />
               </div>
               <div>
                 <label htmlFor="phone" className="block text-xs uppercase tracking-widest text-gold-muted mb-2">Phone Number *</label>
-                <input 
-                  type="tel" 
-                  id="phone" 
-                  name="phone" 
-                  required 
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
                   className="w-full bg-maroon-deep/50 border border-gold/20 rounded-lg px-4 py-3 text-ivory focus:outline-none focus:border-gold transition-colors"
                   placeholder="Your WhatsApp Number"
                 />
               </div>
               <div>
                 <label htmlFor="address" className="block text-xs uppercase tracking-widest text-gold-muted mb-2">Address / Location *</label>
-                <textarea 
-                  id="address" 
-                  name="address" 
-                  required 
+                <textarea
+                  id="address"
+                  name="address"
+                  required
                   rows={3}
                   className="w-full bg-maroon-deep/50 border border-gold/20 rounded-lg px-4 py-3 text-ivory focus:outline-none focus:border-gold transition-colors resize-none"
                   placeholder="Event location or your address"
                 />
               </div>
-              
-              <button 
-                type="submit" 
+
+              <button
+                type="submit"
                 className="w-full bg-gold text-maroon-deep hover:bg-ivory transition-colors py-4 rounded-xl text-[11px] uppercase tracking-[0.25em] font-bold mt-4"
               >
                 Send to WhatsApp
