@@ -693,17 +693,15 @@ function Index() {
               <div className="mb-8 border-b border-gold/10 pb-8 text-center pt-2">
                 <h3 className="text-2xl font-display mb-4 text-ivory">{pkg.title}</h3>
                 <div className="flex flex-col items-center justify-center gap-1 mb-2 hagrid">
-                  {pkg.oldPrice && (
-                    <div className="flex items-center gap-3">
-                      <span className="text-xl text-gold/50 line-through dm-sans">{pkg.oldPrice}</span>
-                      {pkg.discount && (
-                        <span className="text-[10px] bg-red-900/40 text-red-400 px-2 py-1 rounded-sm tracking-wider poppins font-bold">
-                          {pkg.discount}
-                        </span>
-                      )}
-                    </div>
-                  )}
+                  <span className="text-[11px] uppercase tracking-[0.2em] text-gold font-bold poppins">
+                    Starting from
+                  </span>
                   <span className="text-4xl text-gold dm-sans">{pkg.price}</span>
+                  {pkg.travelCharges && (
+                    <span className="text-xs text-gold-muted mt-2 poppins">
+                      {pkg.travelCharges}
+                    </span>
+                  )}
                 </div>
               </div>
 
