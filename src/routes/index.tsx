@@ -689,6 +689,7 @@ function Index() {
                   Most Popular
                 </div>
               )}
+              
 
               <div className="mb-8 border-b border-gold/10 pb-8 text-center pt-2">
                 <h3 className="text-2xl font-display mb-4 text-ivory">{pkg.title}</h3>
