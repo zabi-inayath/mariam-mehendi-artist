@@ -65,9 +65,8 @@ const testimonials = [
 const packages = [
   {
     title: "Bridal Mehendi",
-    oldPrice: "₹2,499",
     price: "₹1,999",
-    discount: "20% OFF",
+    travelCharges: "+ Travel charges depend on location",
     features: [
       "Traditional bridal mehendi up to elbows",
       "Feet up to ankles",
@@ -78,9 +77,8 @@ const packages = [
   },
   {
     title: "Engagement Bride",
-    oldPrice: "₹1,999",
     price: "₹1,699",
-    discount: "15% OFF",
+    travelCharges: "+ Travel charges depend on location",
     features: [
       "Intricate bridal mehendi up to mid-arms",
       "Detailed feet up to mid-calf",
@@ -91,9 +89,8 @@ const packages = [
   },
   {
     title: "Anniversary",
-    oldPrice: "₹1,299",
     price: "₹899",
-    discount: "31% OFF",
+    travelCharges: "+ Travel charges depend on location",
     features: [
       "Beautiful anniversary motifs",
       "Up to mid-arms design",
@@ -105,6 +102,7 @@ const packages = [
   {
     title: "Arabic Mehendi",
     price: "₹199 onwards",
+    travelCharges: "+ Travel charges depend on location",
     features: [
       "Elegant flowy Arabic designs",
       "Ideal for siders and guests",
@@ -116,6 +114,7 @@ const packages = [
   {
     title: "Festival Mehendi",
     price: "₹299 onwards",
+    travelCharges: "+ Travel charges depend on location",
     features: [
       "Festive motifs for Eid, Diwali, Karwa Chauth",
       "Traditional and modern fusion",
@@ -127,6 +126,7 @@ const packages = [
   {
     title: "Custom Mehendi",
     price: "Custom",
+    travelCharges: "+ Travel charges depend on location",
     features: [
       "Fully bespoke designs",
       "Portrait and story-based henna",
@@ -135,6 +135,63 @@ const packages = [
     ],
     popular: false,
     customButton: "Contact Us"
+  }
+];
+
+const instagramPosts = [
+  {
+    id: "Dfqp_0XS5Qq",
+    type: "reel",
+    caption: "Book us for your special occasions to make more beautiful 💌",
+    url: "https://www.instagram.com/reel/Dfqp_0XS5Qq/"
+  },
+  {
+    id: "Dfod3jvyKC8",
+    type: "reel",
+    caption: "Mehndi Tutorial 🌸🥀",
+    url: "https://www.instagram.com/reel/Dfod3jvyKC8/"
+  },
+  {
+    id: "DfkInuQyB8G",
+    type: "reel",
+    caption: "Thank you for choosing my work! 🤎 @dharchu_47",
+    url: "https://www.instagram.com/reel/DfkInuQyB8G/"
+  },
+  {
+    id: "DfgvWQpyvEm",
+    type: "reel",
+    caption: "Would you let me design your hands like this? 🤎",
+    url: "https://www.instagram.com/reel/DfgvWQpyvEm/"
+  },
+  {
+    id: "DfT6e3XSfUW",
+    type: "reel",
+    caption: "Henna dreams for her special day. 🌸",
+    url: "https://www.instagram.com/reel/DfT6e3XSfUW/"
+  },
+  {
+    id: "DfMWU2ikqjs",
+    type: "post",
+    caption: "Book us for your special occasions to make more beautiful 🥀✨",
+    url: "https://www.instagram.com/p/DfMWU2ikqjs/"
+  },
+  {
+    id: "DfMWGyKyHgv",
+    type: "post",
+    caption: "Intricate bridal palm motifs & symmetry 🌿",
+    url: "https://www.instagram.com/p/DfMWGyKyHgv/"
+  },
+  {
+    id: "DfMWGy4yjj4",
+    type: "post",
+    caption: "Classic floral mandala henna art 🌸",
+    url: "https://www.instagram.com/p/DfMWGy4yjj4/"
+  },
+  {
+    id: "DfMWG2gyyQ7",
+    type: "post",
+    caption: "Graceful bridal backhand detail ✨",
+    url: "https://www.instagram.com/p/DfMWG2gyyQ7/"
   }
 ];
 
@@ -166,6 +223,12 @@ function Index() {
   };
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [instagramFilter, setInstagramFilter] = useState<"all" | "reel" | "post">("all");
+
+  const filteredInstagramPosts = instagramPosts.filter((post) => {
+    if (instagramFilter === "all") return true;
+    return post.type === instagramFilter;
+  });
 
   const [galleryPage, setGalleryPage] = useState(1);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -218,6 +281,22 @@ function Index() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ((window as any).instgrm) {
+        (window as any).instgrm.Embeds?.process();
+      } else {
+        const script = document.createElement("script");
+        script.src = "//www.instagram.com/embed.js";
+        script.async = true;
+        script.onload = () => {
+          (window as any).instgrm?.Embeds?.process();
+        };
+        document.body.appendChild(script);
+      }
+    }
+  }, [instagramFilter]);
+
   return (
     <div className="bg-maroon-deep text-ivory font-sans">
       {/* Nav */}
@@ -232,6 +311,7 @@ function Index() {
           <a href="#gallery" className="hover:text-gold transition-colors">My Work</a>
           <a href="#testimonials" className="hover:text-gold transition-colors">Reviews</a>
           <a href="#pricing" className="hover:text-gold transition-colors">Pricing</a>
+          <a href="#reels" className="hover:text-gold transition-colors">Reels</a>
         </div>
         <div className="flex items-center gap-4">
           <a
@@ -266,6 +346,7 @@ function Index() {
             <a href="#gallery" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">My Work</a>
             <a href="#testimonials" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Reviews</a>
             <a href="#pricing" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Pricing</a>
+            <a href="#reels" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Reels</a>
 
             <a
               href="#pricing"
@@ -646,6 +727,149 @@ function Index() {
               </button>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Instagram Reels & Posts */}
+      <section id="reels" className="px-6 lg:px-20 py-28 border-t border-gold/10 bg-maroon-deep">
+        <div className="flex flex-col items-center text-center mb-16">
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-gold mb-3">Live on Instagram</p>
+          <h2 className="text-4xl md:text-5xl font-display bg-gold text-maroon-deep p-1 rounded-lg inline-block px-4">
+            Reels & Artistry
+          </h2>
+          <p className="text-ivory-muted mt-5 max-w-lg mx-auto poppins text-sm md:text-base leading-relaxed">
+            Watch real bridal transformations, detailed application tutorials, and fresh henna inspiration from our Instagram feed.
+          </p>
+
+          {/* Profile Bar */}
+          <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 bg-maroon-core/80 border border-gold/20 px-6 py-4 rounded-2xl backdrop-blur-sm">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600">
+                <div className="w-full h-full bg-maroon-deep rounded-full flex items-center justify-center text-gold">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                  </svg>
+                </div>
+              </div>
+              <div className="text-left">
+                <a
+                  href="https://www.instagram.com/mariam_mehndi_artist_/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-display text-lg text-ivory hover:text-gold transition-colors font-semibold flex items-center gap-1.5"
+                >
+                  @mariam_mehndi_artist_
+                  <span className="text-xs text-gold/70 font-mono">↗</span>
+                </a>
+                <p className="text-xs text-ivory-muted poppins">MARIAM HENNA ARTIST • 98+ Posts</p>
+              </div>
+            </div>
+
+            <a
+              href="https://www.instagram.com/mariam_mehndi_artist_/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sm:ml-4 px-5 py-2.5 bg-gold text-maroon-deep text-xs font-semibold rounded-full uppercase tracking-wider hover:bg-ivory transition-colors poppins"
+            >
+              Follow on Instagram
+            </a>
+          </div>
+
+          {/* Filter Pills */}
+          <div className="flex items-center gap-2 mt-10 p-1 bg-maroon-core/60 border border-gold/15 rounded-full">
+            <button
+              onClick={() => setInstagramFilter("all")}
+              className={`px-5 py-2 rounded-full text-xs font-medium transition ${instagramFilter === "all"
+                ? "bg-gold text-maroon-deep font-semibold"
+                : "text-ivory-muted hover:text-gold"
+                }`}
+            >
+              All (9)
+            </button>
+            <button
+              onClick={() => setInstagramFilter("reel")}
+              className={`px-5 py-2 rounded-full text-xs font-medium transition flex items-center gap-1.5 ${instagramFilter === "reel"
+                ? "bg-gold text-maroon-deep font-semibold"
+                : "text-ivory-muted hover:text-gold"
+                }`}
+            >
+              <span>▶</span> Reels (5)
+            </button>
+            <button
+              onClick={() => setInstagramFilter("post")}
+              className={`px-5 py-2 rounded-full text-xs font-medium transition ${instagramFilter === "post"
+                ? "bg-gold text-maroon-deep font-semibold"
+                : "text-ivory-muted hover:text-gold"
+                }`}
+            >
+              Photos (4)
+            </button>
+          </div>
+        </div>
+
+        {/* 9 Items Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
+          {filteredInstagramPosts.map((post) => (
+            <div
+              key={post.id}
+              className="bg-maroon-core border border-gold/15 rounded-2xl overflow-hidden hover:border-gold/40 shadow-xl transition-all duration-300 flex flex-col group"
+            >
+              <div className="px-5 py-3.5 border-b border-gold/10 flex items-center justify-between bg-maroon-core/90">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-gold bg-gold/10 px-2 py-0.5 rounded">
+                    {post.type === "reel" ? "▶ Reel" : "✦ Post"}
+                  </span>
+                  <span className="text-xs text-ivory-muted poppins truncate max-w-[180px]">
+                    @mariam_mehndi_artist_
+                  </span>
+                </div>
+                <a
+                  href={post.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] font-mono text-gold hover:text-ivory transition-colors flex items-center gap-1"
+                >
+                  View ↗
+                </a>
+              </div>
+
+              {/* Playable Instagram Embed */}
+              <div className="relative w-full aspect-[9/14] sm:h-[520px] bg-maroon-deep flex items-center justify-center overflow-hidden">
+                <iframe
+                  src={post.type === "reel"
+                    ? `https://www.instagram.com/reel/${post.id}/embed/`
+                    : `https://www.instagram.com/p/${post.id}/embed/`}
+                  className="w-full h-full border-0"
+                  scrolling="no"
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  allowFullScreen
+                  title={post.caption || `Instagram ${post.type} ${post.id}`}
+                  loading="lazy"
+                />
+              </div>
+
+              {post.caption && (
+                <div className="p-4 border-t border-gold/10 bg-maroon-core/70 text-xs text-ivory-muted poppins line-clamp-2">
+                  {post.caption}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="mt-16 text-center">
+          <a
+            href="https://www.instagram.com/mariam_mehndi_artist_/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl border border-gold/40 text-gold hover:bg-gold hover:text-maroon-deep transition-all duration-300 text-xs uppercase tracking-[0.2em] font-semibold poppins"
+          >
+            <span>See More on Instagram (@mariam_mehndi_artist_)</span>
+            <span>→</span>
+          </a>
         </div>
       </section>
 
