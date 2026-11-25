@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import heroHenna from "@/assets/gallery/photo_35_2026-06-30_10-54-48.jpg";
+import mariamLogo from "@/assets/brand/mariam-logo.jpg";
 
 const taglines = [
   "Where Every Hand Tells a Beautiful Story.",
@@ -14,10 +15,14 @@ const subheadings = [
   "Crafted with passion and precision, our mehendi designs add elegance, beauty, and lasting memories to your special day.",
   "Pyaar aur perfection ke saath banaye gaye hamare mehendi designs aapke special din ko aur bhi khoobsurat aur yaadgaar bana dete hain."
 ];
-import artistPortrait from "@/assets/artist.png";
+import artistPortrait from "@/assets/artist.jpg";
 
 const galleryImagesData = import.meta.glob<{ default: string }>('../assets/gallery/*.jpg', { eager: true });
 const galleryImages = Object.values(galleryImagesData).map((module) => module.default);
+const reviewImagesData = import.meta.glob<{ default: string }>('../assets/reviews/*.jpg', { eager: true });
+const reviewImages = Object.keys(reviewImagesData)
+  .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+  .map((path) => reviewImagesData[path].default);
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -62,19 +67,31 @@ const testimonials = [
   },
 ];
 
-const packages = [
+const bridalPackages = [
   {
-    title: "Bridal Mehendi",
-    price: "₹1,999",
-    travelCharges: "+ Travel charges depend on location",
-    features: [
-      "Traditional bridal mehendi up to elbows",
-      "Feet up to ankles",
-      "Complimentary consultation",
-      "Premium organic henna"
-    ],
-    popular: true
+    number: "01",
+    title: "Classic Bridal Package",
+    price: "₹2,500",
+    siders: "1 Sider",
+    popular: false,
   },
+  {
+    number: "02",
+    title: "Premium Bridal Package",
+    price: "₹4,500",
+    siders: "4 Siders",
+    popular: true,
+  },
+  {
+    number: "03",
+    title: "Royal Bridal Package",
+    price: "₹7,000",
+    siders: "8 Siders",
+    popular: false,
+  },
+];
+
+const packages = [
   {
     title: "Engagement Bride",
     price: "₹1,699",
@@ -232,6 +249,7 @@ function Index() {
 
   const [galleryPage, setGalleryPage] = useState(1);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [reviewLightboxIndex, setReviewLightboxIndex] = useState<number | null>(null);
   const imagesPerPage = 9;
   const totalGalleryPages = Math.ceil(galleryImages.length / imagesPerPage);
 
@@ -301,8 +319,12 @@ function Index() {
     <div className="bg-maroon-deep text-ivory font-sans">
       {/* Nav */}
       <nav className="sticky top-0 z-50 flex justify-between items-center px-6 lg:px-20 py-5 border-b border-gold/10 bg-maroon-deep/85 backdrop-blur-md">
-        <a href="#top" className="font-display italic text-2xl tracking-tighter">
-          Mariam
+        <a href="#top" className="flex items-center" aria-label="Mariam Mehendi Artist home">
+          <img
+            src={mariamLogo}
+            alt="Mariam Mehendi Artist"
+            className="h-14 w-14 rounded-full object-cover ring-1 ring-gold/30 md:h-16 md:w-16"
+          />
         </a>
         <div className="hidden lg:flex gap-8 text-[10px] uppercase tracking-[0.25em] font-medium text-ivory-muted">
           <a href="#craft" className="hover:text-gold transition-colors">About</a>
@@ -645,25 +667,72 @@ function Index() {
         </div>
       )}
 
+      {reviewLightboxIndex !== null && (
+        <div
+          className="fixed inset-0 z-[120] flex items-center justify-center bg-maroon-deep/95 px-4 backdrop-blur-md"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Review photo ${reviewLightboxIndex + 1}`}
+        >
+          <button
+            type="button"
+            className="absolute inset-0 cursor-pointer"
+            onClick={() => setReviewLightboxIndex(null)}
+            aria-label="Close review preview"
+          />
+          <button
+            type="button"
+            onClick={() => setReviewLightboxIndex(null)}
+            className="absolute top-5 right-5 z-[130] grid h-11 w-11 place-items-center rounded-full border border-gold/20 bg-maroon-core/80 text-ivory backdrop-blur-md hover:text-gold transition-colors"
+            aria-label="Close"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+          <img
+            src={reviewImages[reviewLightboxIndex]}
+            alt={`Client review ${reviewLightboxIndex + 1} preview`}
+            className="relative z-[125] max-h-[88vh] max-w-[92vw] rounded-2xl object-contain shadow-2xl ring-1 ring-gold/20"
+          />
+          <div className="absolute bottom-5 z-[130] rounded-full border border-gold/20 bg-maroon-deep/80 px-4 py-2 font-mono text-[9px] uppercase tracking-[0.25em] text-gold backdrop-blur-md">
+            {reviewLightboxIndex + 1} / {reviewImages.length}
+          </div>
+        </div>
+      )}
+
       {/* Testimonials */}
       <section id="testimonials" className="px-6 lg:px-20 py-24 border-y border-gold/10 bg-maroon-deep">
-        <div className="flex flex-col items-center text-center mb-16">
+        <div className="flex flex-col items-center text-center mb-12">
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-gold mb-4">Real words from lovely clients</p>
           <h2 className="text-4xl md:text-5xl font-display bg-gold text-maroon-deep p-1 rounded-lg inline-block px-4">Client Love</h2>
         </div>
-        <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-          {testimonials.map((t, i) => (
-            <blockquote
-              key={t.name}
-              className="group border border-gold/10 p-8 md:p-10 rounded-2xl bg-maroon-core hover:border-gold/30 transition-all flex flex-col justify-between"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+          {reviewImages.map((image, index) => (
+            <button
+              type="button"
+              key={image}
+              onClick={() => setReviewLightboxIndex(index)}
+              className="group relative overflow-hidden rounded-[1.25rem] border border-gold/15 bg-maroon-core shadow-[0_18px_50px_rgba(0,0,0,0.18)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold transition-all duration-500 hover:-translate-y-1 hover:border-gold/40"
+              aria-label={`Open review photo ${index + 1}`}
             >
-              <p className="text-lg italic leading-relaxed mb-10 font-display text-ivory-muted group-hover:text-ivory transition-colors">
-                &ldquo;{t.quote}&rdquo;
-              </p>
-              <footer className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold text-left">
-                — {t.name} <br />
-                <span className="text-gold-muted/50 block mt-2">{t.meta}</span>
-              </footer>
-            </blockquote>
+              <div className="relative aspect-[4/5] overflow-hidden">
+                <img
+                  src={image}
+                  alt={`Client review ${index + 1}`}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/80 via-transparent to-transparent opacity-70" />
+                <span className="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-full border border-white/10 bg-maroon-deep/75 px-4 py-2 text-left backdrop-blur-md">
+                  <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-gold">Verified review</span>
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-gold text-maroon-deep transition-transform duration-300 group-hover:rotate-[-8deg] group-hover:scale-105">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M15 3h6v6"></path>
+                      <path d="m10 14 11-11"></path>
+                    </svg>
+                  </span>
+                </span>
+              </div>
+            </button>
           ))}
         </div>
       </section>
@@ -678,6 +747,81 @@ function Index() {
           </p>
         </div>
 
+        <div className="max-w-6xl mx-auto mb-16">
+          <div className="text-center mb-8">
+            <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold mb-3">Bridal Collection</p>
+            <h3 className="text-3xl md:text-4xl font-display text-ivory">Choose Your Bridal Package</h3>
+            <p className="mt-3 text-sm text-gold-muted poppins">Travel extra based on your location</p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {bridalPackages.map((pkg) => (
+              <article
+                key={pkg.title}
+                className={`relative overflow-hidden rounded-[1.75rem] border px-7 py-8 transition-all duration-500 hover:-translate-y-2 ${pkg.popular
+                    ? "border-gold bg-gradient-to-br from-[#b7893b] via-[#d0ad67] to-[#8d6227] shadow-[0_24px_70px_rgba(213,123,57,0.22)] md:-translate-y-3"
+                    : "border-gold/25 bg-gradient-to-br from-[#5d1717] via-[#721f20] to-[#361010] shadow-[0_18px_50px_rgba(0,0,0,0.22)]"
+                  }`}
+              >
+                <div className="relative">
+                  {pkg.popular ? (
+                    <div className="mb-8 w-fit rounded-full border border-maroon-deep/15 bg-maroon-deep px-4 py-1.5 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-gold">
+                      Most Popular
+                    </div>
+                  ) : (
+                    <div className="mb-8 h-[29px]" />
+                  )}
+
+                  <p className={`mb-3 text-[15px] poppins uppercase ${pkg.popular ? "text-maroon-deep/70" : "text-gold"}`}>
+                    {pkg.number} · Bridal Collection
+                  </p>
+                  <h4 className={`min-h-[64px] font-display text-2xl leading-tight ${pkg.popular ? "text-maroon-deep" : "text-ivory"}`}>
+                    {pkg.title}
+                  </h4>
+
+                  <div className={`my-7 h-px ${pkg.popular ? "bg-maroon-deep/20" : "bg-gold/20"}`} />
+
+                  <div className={`space-y-3 text-sm poppins ${pkg.popular ? "text-maroon-deep" : "text-ivory-muted"}`}>
+                    <p className="flex items-center gap-3">
+                      <span className={pkg.popular ? "text-maroon-deep" : "text-gold"}>✦</span>
+                      1 Bridal
+                    </p>
+                    <p className="flex items-center gap-3">
+                      <span className={pkg.popular ? "text-maroon-deep" : "text-gold"}>✦</span>
+                      {pkg.siders}
+                    </p>
+                  </div>
+
+                  <div className={`my-7 h-px ${pkg.popular ? "bg-maroon-deep/20" : "bg-gold/20"}`} />
+
+                  <span className={`block text-4xl font-bold dm-sans ${pkg.popular ? "text-maroon-deep" : "text-gold"}`}>
+                    {pkg.price}
+                  </span>
+                  <p className={`mt-2 text-xs poppins ${pkg.popular ? "text-maroon-deep/70" : "text-gold-muted"}`}>
+                    Travel charges depend on location
+                  </p>
+
+                  <button
+                    type="button"
+                    onClick={() => setInquiryPackage(pkg.title)}
+                    className={`mt-7 w-full rounded-xl px-5 py-4 text-[10px] font-semibold uppercase tracking-[0.22em] transition-colors poppins ${pkg.popular
+                        ? "bg-maroon-deep text-gold hover:bg-maroon-core"
+                        : "border border-gold/35 text-ivory hover:border-gold hover:bg-gold/10"
+                      }`}
+                  >
+                    Enquire Now
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-10 text-center">
+          <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold mb-3">Additional Services</p>
+          <h3 className="text-3xl font-display text-ivory">Other Packages</h3>
+        </div>
+
         <div className="grid lg:grid-cols-3 gap-8 items-start max-w-7xl mx-auto">
           {packages.map((pkg, i) => (
             <div
@@ -689,7 +833,7 @@ function Index() {
                   Most Popular
                 </div>
               )}
-              
+
 
               <div className="mb-8 border-b border-gold/10 pb-8 text-center pt-2">
                 <h3 className="text-2xl font-display mb-4 text-ivory">{pkg.title}</h3>
@@ -876,7 +1020,11 @@ function Index() {
       <footer className="bg-maroon-core px-6 lg:px-20 py-20 border-t border-gold/10">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
           <div className="space-y-6">
-            <h2 className="text-5xl md:text-6xl font-display italic">Mariam</h2>
+            <img
+              src={mariamLogo}
+              alt="Mariam Mehendi Artist"
+              className="h-24 w-24 rounded-full object-cover ring-1 ring-gold/30"
+            />
             <p className="text-ivory-muted max-w-xs leading-relaxed">
               Modern heritage henna for the contemporary bride. Bespoke commissions by appointment only.
             </p>

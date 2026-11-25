@@ -2,10 +2,10 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { _t as Outlet, bt as createRootRouteWithContext, gt as createRouter, mt as HeadContent, pt as Scripts, vt as lazyRouteComponent, xt as Link, yt as createFileRoute, zt as useRouter } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-OLZBTqgw.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-DV8bsf7G.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-BusV5-5_.css";
+var styles_default = "/assets/styles-CbV_z_1S.css";
 function reportLovableError(error, context = {}) {
 	if (typeof window === "undefined") return;
 	window.__lovableEvents?.captureException?.(error, {
@@ -118,6 +118,20 @@ var Route$1 = createRootRouteWithContext()({
 				href: styles_default
 			},
 			{
+				rel: "icon",
+				href: "/favicon.jpg",
+				type: "image/jpeg"
+			},
+			{
+				rel: "shortcut icon",
+				href: "/favicon.jpg",
+				type: "image/jpeg"
+			},
+			{
+				rel: "apple-touch-icon",
+				href: "/favicon.jpg"
+			},
+			{
 				rel: "preconnect",
 				href: "https://fonts.googleapis.com"
 			},
@@ -150,7 +164,7 @@ function RootComponent() {
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {})
 	});
 }
-var $$splitComponentImporter = () => import("./routes-BXmxcXL2.mjs");
+var $$splitComponentImporter = () => import("./routes-BiypOqcg.mjs");
 var rootRouteChildren = { IndexRoute: createFileRoute("/")({
 	head: () => ({ meta: [
 		{ title: "Mariam Mehendi Artist — Couture Bridal Mehndi" },
